@@ -53,4 +53,16 @@ for i in range(4):
         btn.grid(row=i, column=j, padx=5, pady=5)
         buttons.append(btn)
 
-root.mainloop()
+root.mainloop() 
+
+import tkinter as tk
+from functools import partial
+
+root = tk.Tk()
+root.title("Memory Game - Зворотній режим з перезапуском")
+
+timer_label = tk.Label(root, text=f"Час: 30 с", font=("Arial", 14))
+timer_label.pack(pady=5)
+
+correct_label = tk.Label(root, text="Правильних пар: 0", font=("Arial", 14))
+correct_label.pack(pady=5)
