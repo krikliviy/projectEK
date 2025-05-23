@@ -101,3 +101,8 @@ def reset_game():
 
     root.after(2500, start_game)
 
+reset_button = tk.Button(root, text="Перезапустити гру", font=("Arial", 14), command=reset_game)
+reset_button.pack(pady=10)
+
+reset_game()
+root.mainloop()
