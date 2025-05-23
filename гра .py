@@ -82,3 +82,17 @@ for i in range(4):
         
         btn.grid(row=i, column=j, padx=5, pady=5)
         buttons.append(btn)
+
+def reset_game():
+    global symbols, opened, matched, time_left, game_started, correct_count
+
+    symbols = symbols_base * 2
+    random.shuffle(symbols)
+    opened.clear()
+    matched.clear()
+    time_left = 30
+    correct_count = 0
+    correct_label.config(text="Правильних пар: 0")
+    timer_label.config(text=f"Час: {time_left} с")
+    game_started = False
+
