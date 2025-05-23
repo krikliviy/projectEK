@@ -96,3 +96,8 @@ def reset_game():
     timer_label.config(text=f"Час: {time_left} с")
     game_started = False
 
+ for i, btn in enumerate(buttons):
+        btn.config(text=symbols[i], state="disabled", bg="SystemButtonFace")
+
+    root.after(2500, start_game)
+
