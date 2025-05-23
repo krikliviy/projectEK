@@ -66,3 +66,19 @@ timer_label.pack(pady=5)
 
 correct_label = tk.Label(root, text="Правильних пар: 0", font=("Arial", 14))
 correct_label.pack(pady=5)
+
+frame = tk.Frame(root)
+frame.pack()
+
+buttons = []
+
+for i in range(4):
+    for j in range(4):
+        index = i * 4 + j
+        btn = tk.Button(
+            frame, text="?", width=6, height=3,
+            font=("Arial", 20),
+            command=partial(on_click, index)
+        
+        btn.grid(row=i, column=j, padx=5, pady=5)
+        buttons.append(btn)
