@@ -79,7 +79,7 @@ for i in range(4):
             frame, text="?", width=6, height=3,
             font=("Arial", 20),
             command=partial(on_click, index)
-        
+    
         btn.grid(row=i, column=j, padx=5, pady=5)
         buttons.append(btn)
 
@@ -96,7 +96,7 @@ def reset_game():
     timer_label.config(text=f"Час: {time_left} с")
     game_started = False
 
- for i, btn in enumerate(buttons):
+    for i, btn in enumerate(buttons):
         btn.config(text=symbols[i], state="disabled", bg="SystemButtonFace")
 
     root.after(2500, start_game)
