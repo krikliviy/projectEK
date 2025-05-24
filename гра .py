@@ -61,7 +61,7 @@ def start_game():
 def end_game():
     global game_started
     game_started = False
-
+ʼ
 import tkinter as tk
 from functools import partial
 
