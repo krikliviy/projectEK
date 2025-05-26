@@ -88,54 +88,75 @@ def start_game():
 def end_game():
     global game_started
     game_started = False
-import tkinter as tk
-from functools import partial
+import tkinter as tk  # Імпортуємо бібліотеку для графічного інтерфейсу
+from functools import partial  # Імпортуємо partial для передачі параметрів у функцію при натисканні кнопки
 
+# Створюємо головне вікно гри
 root = tk.Tk()
-root.title("Memory Game - Зворотній режим з перезапуском")
+root.title("Memory Game - Зворотній режим з перезапуском")  # Встановлюємо заголовок вікна
 
+# Створюємо текстову мітку для таймера (початкове значення 30 с)
 timer_label = tk.Label(root, text=f"Час: 30 с", font=("Arial", 14))
-timer_label.pack(pady=5)
+timer_label.pack(pady=5)  # Додаємо відступ зверху і знизу (pady)
 
+# Створюємо мітку, яка показує кількість правильних пар, знайдених гравцем
 correct_label = tk.Label(root, text="Правильних пар: 0", font=("Arial", 14))
 correct_label.pack(pady=5)
 
+# Створюємо контейнер (рамку), в якому будуть кнопки гри (картки)
 frame = tk.Frame(root)
-frame.pack()
+frame.pack()  # Додаємо рамку до головного вікна
 
+# Список для збереження всіх кнопок гри (16 штук для поля 4x4)
 buttons = []
 
+# Цикл для створення 4x4 кнопок (всього 16)
 for i in range(4):
     for j in range(4):
-        index = i * 4 + j
+        index = i * 4 + j  # Обчислюємо унікальний індекс для кожної кнопки
         btn = tk.Button(
-            frame, text="?", width=6, height=3,
-            font=("Arial", 20),
-            command=partial(on_click, index)
+            frame, text="?", width=6, height=3,  # Початковий текст "?" і розміри кнопки
+            font=("Arial", 20),  # Шрифт і розмір тексту на кнопці
+            command=partial(on_click, index)  # Передаємо функцію on_click з параметром index
         )
-        btn.grid(row=i, column=j, padx=5, pady=5)
-        buttons.append(btn)
+        btn.grid(row=i, column=j, padx=5, pady=5)  # Розміщуємо кнопку у відповідній комірці сітки
+        buttons.append(btn)  # Додаємо кнопку до списку buttons
 
+
+# Функція для скидання гри та її перезапуску
 def reset_game():
     global symbols, opened, matched, time_left, game_started, correct_count
 
-    symbols = symbols_base * 2
-    random.shuffle(symbols)
-    opened.clear()
-    matched.clear()
-    time_left = 30
-    correct_count = 0
+    # Створюємо новий список символів і перемішуємо їх
+    symbols = symbols_base * 2  # Повторюємо кожен символ 2 рази, бо кожен має пару
+    random.shuffle(symbols)  # Перемішуємо символи випадковим чином
+
+    opened.clear()   # Очищаємо список відкритих карток
+    matched.clear()  # Очищаємо список знайдених пар
+    time_left = 30   # Повертаємо таймер на 30 секунд
+    correct_count = 0  # Обнуляємо рахунок правильних пар
+
+    # Оновлюємо текстові мітки
     correct_label.config(text="Правильних пар: 0")
     timer_label.config(text=f"Час: {time_left} с")
-    game_started = False
 
+    game_started = False  # Гра ще не почалась
+
+    # Встановлюємо нові значення на кнопки і блокуємо їх на 2.5 секунди
     for i, btn in enumerate(buttons):
-        btn.config(text=symbols[i], state="disabled", bg="SystemButtonFace")
+        btn.config(text=symbols[i], state="disabled", bg="SystemButtonFace")  # Показуємо картки на старті
 
+    # Через 2.5 секунди запускаємо гру (картки сховаються)
     root.after(2500, start_game)
 
-reset_button = tk.Button(root, text="Перезапустити гру", font=("Arial", 14), command=reset_game)
-reset_button.pack(pady=10)
 
+# Кнопка для ручного перезапуску гри (натискається користувачем)
+reset_button = tk.Button(root, text="Перезапустити гру", font=("Arial", 14), command=reset_game)
+reset_button.pack(pady=10)  # Відступ зверху і знизу
+
+
+# Запускаємо перший запуск гри автоматично при відкритті вікна
 reset_game()
+# Запускаємо основний цикл роботи графічного інтерфейсу
 root.mainloop()
+
